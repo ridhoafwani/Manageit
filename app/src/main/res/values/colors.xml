@@ -14,4 +14,7 @@
     <color name="button">#FF5722</color>
     <color name="blue_grey_300">#90A4AE</color>
     <color name="blue_grey_800">#37474F</color>
+    <color name="grey_40">#999999</color>
+    <color name="grey_60">#666666</color>
+    <color name="blue_500">#2196F3</color>
 </resources>
