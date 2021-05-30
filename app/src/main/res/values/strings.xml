@@ -8,4 +8,10 @@
     <string name="text_recent_transactions">Recent Transactions</string>
     <string name="text_transaction_empty_title">No Transaction Yet!</string>
     <string name="text_transaction_empty_desc">After your first transaction you will be able to view it here</string>
+    <string name="title_addtransaction">Title</string>
+    <string name="amount_addtransaction">Amount</string>
+    <string name="transaction_type_addtransaction">Transaction_Type</string>
+    <string name="transaction_tag_addtransaction">Transaction Tag</string>
+    <string name="transaction_date_addtransaction">Transaction Date</string>
+    <string name="transaction_note_addtransaction">Transaction Note</string>
 </resources>
