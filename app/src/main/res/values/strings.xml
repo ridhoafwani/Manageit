@@ -22,4 +22,13 @@
     <string name="text_expense_note">Note</string>
     <string name="text_expense_add_transaction">Save Transaction</string>
     <string name="text_createdAt">Created At</string>
+    <!--  About -->
+    <string name="text_about_license_title"><![CDATA[Attributions & Version]]></string>
+    <string name="text_about_license">Manageit Version 1.0</string>
+    <string name="text_about_visit_title">Visit</string>
+    <string name="text_about_visit_url"><u>https://gitlab.com/Ridhoafwani/manageit</u></string>
+    <string name="text_about_team">Team</string>
+    <string name="member_of_team">Muhammad Zikrurridho Afwani</string>
+    <string name="member_of_team2">Yuniar Islamiati</string>
+    <string name="member_of_team3">Baiq Ashfiatun Nisa Mulyani</string>
 </resources>
