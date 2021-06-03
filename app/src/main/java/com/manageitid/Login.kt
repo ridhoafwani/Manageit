@@ -3,15 +3,18 @@ package com.manageitid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.manageitid.databinding.ActivityLoginBinding
 import android.widget.Toast
 import android.util.Log
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class Login : AppCompatActivity() {
@@ -20,6 +23,7 @@ class Login : AppCompatActivity() {
     private lateinit var email : String
     private lateinit var password : String
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var binding : ActivityLoginBinding
 
     companion object{
         private const val TAG = "___TEST___"
@@ -29,7 +33,7 @@ class Login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
@@ -44,7 +48,7 @@ class Login : AppCompatActivity() {
         binding.btnSignIn.setOnClickListener{
             email = binding.edtEmail.text.toString()
             password = binding.edtPassword.text.toString()
-            signIn()
+            signInDefault()
         }
         binding.btnSignInGoogle.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
@@ -70,6 +74,8 @@ class Login : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
+                Toast.makeText(baseContext, "Gagal bos $e",
+                        Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -81,11 +87,12 @@ class Login : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
                     moveToMain()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(baseContext, "Gagal diakhir",
+                        Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -109,21 +116,40 @@ class Login : AppCompatActivity() {
         startActivity(Intent(baseContext, Signup::class.java))
     }
 
-    fun signIn(){
+    fun signInDefault(){
 
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(baseContext, "Signing In",
-                        Toast.LENGTH_SHORT).show()
-                    val user = auth.currentUser
-                    moveToMain()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                }
+        email = binding.edtEmail.text.toString()
+        password = binding.edtPassword.text.toString()
+
+        when{
+
+            TextUtils.isEmpty(email) -> {
+                binding.edtEmail.setError("Name cannot empty")
+                binding.edtEmail.requestFocus()
             }
+            TextUtils.isEmpty(password) -> {
+                binding.edtPassword.setError("Name cannot empty")
+                binding.edtPassword.requestFocus()
+            }
+            else ->{
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(baseContext, "Signing In",
+                                Toast.LENGTH_SHORT).show()
+                            val user = auth.currentUser
+                            moveToMain()
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+            }
+        }
+
+
     }
 }

@@ -3,9 +3,7 @@ package com.manageitid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.manageitid.databinding.ActivityMainBinding
@@ -22,10 +20,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        val DashboardFragment =  Dashboard()
+        val DashboardFragment =  DashboardFragment()
         val fragment = supportFragmentManager.findFragmentByTag(DashboardFragment::class.java.simpleName)
 
-        if (fragment !is Dashboard) {
+        if (fragment !is DashboardFragment) {
             supportFragmentManager
                     .beginTransaction()
                     .add(R.id.fragment_container, DashboardFragment, DashboardFragment::class.java.simpleName)
@@ -44,6 +42,17 @@ class MainActivity : AppCompatActivity() {
             R.id.action_logout -> {
                 auth.signOut()
                 startActivity(Intent(baseContext, Login::class.java))
+            }
+            R.id.action_about ->{
+                val AboutFragment =  AboutFragment()
+                val fr = supportFragmentManager.findFragmentByTag(AboutFragment::class.java.simpleName)
+
+                if (fr !is AboutFragment) {
+                    supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, AboutFragment, AboutFragment::class.java.simpleName)
+                            .commit()
+                }
             }
         }
 

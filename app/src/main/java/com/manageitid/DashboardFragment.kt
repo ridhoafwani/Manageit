@@ -5,7 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 
 
-class Dashboard : Fragment() {
+class DashboardFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
