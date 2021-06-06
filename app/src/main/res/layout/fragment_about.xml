@@ -109,43 +109,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/team_name2" />
 
-        <TextView
-            android:id="@+id/visitTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/open_sans_bold"
-            android:text="@string/text_about_visit_title"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/license" />
-
 
         <TextView
             android:id="@+id/team"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/text_about_team"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/visitURL" />
-
-        <TextView
-            android:id="@+id/visitURL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/open_sans_regular"
-            android:text="@string/text_about_visit_url"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:textColor="@color/purple_500"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/visitTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/license" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
