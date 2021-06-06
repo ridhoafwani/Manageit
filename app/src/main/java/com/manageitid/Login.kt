@@ -74,8 +74,8 @@ class Login : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
-                Toast.makeText(baseContext, "Gagal bos $e",
-                        Toast.LENGTH_SHORT).show()
+                Toast.makeText(baseContext, "Gagal bos",
+                    Toast.LENGTH_SHORT).show()
             }
         }
     }
