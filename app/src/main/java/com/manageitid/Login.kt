@@ -1,20 +1,19 @@
 package com.manageitid
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import com.google.firebase.auth.FirebaseAuth
-import com.manageitid.databinding.ActivityLoginBinding
-import android.widget.Toast
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.manageitid.databinding.ActivityLoginBinding
 
 
 class Login : AppCompatActivity() {
@@ -28,6 +27,7 @@ class Login : AppCompatActivity() {
     companion object{
         private const val TAG = "___TEST___"
         private const val RC_SIGN_IN = 100
+        public lateinit var user : FirebaseAuth
     }
 
 
@@ -36,6 +36,7 @@ class Login : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
+        user = auth
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -74,8 +75,10 @@ class Login : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
-                Toast.makeText(baseContext, "Gagal bos",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    baseContext, "Gagal bos",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -87,12 +90,15 @@ class Login : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
+                    user = auth
                     moveToMain()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(baseContext, "Gagal diakhir",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext, "Gagal diakhir",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                 }
             }
@@ -101,8 +107,7 @@ class Login : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if(currentUser != null){
+        if(auth.currentUser != null){
             moveToMain()
         }
     }
@@ -136,14 +141,18 @@ class Login : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(baseContext, "Signing In",
-                                Toast.LENGTH_SHORT).show()
-                            val user = auth.currentUser
+                            Toast.makeText(
+                                baseContext, "Signing In",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            user = auth
                             moveToMain()
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(baseContext, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
 
