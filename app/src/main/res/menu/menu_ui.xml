@@ -8,12 +8,12 @@
         app:actionViewClass="androidx.appcompat.widget.AppCompatSpinner"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_night_mode"
-        android:checkable="true"
-        android:icon="@drawable/ic_day"
-        android:title="UI Mode"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/action_night_mode"-->
+<!--        android:checkable="true"-->
+<!--        android:icon="@drawable/ic_day"-->
+<!--        android:title="UI Mode"-->
+<!--        app:showAsAction="always" />-->
 
     <item
         android:id="@+id/action_about"

@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DashboardFragment">
+    tools:context=".DashboardFragment"
+    android:id="@+id/dashboardFrag">
 
 
     <androidx.core.widget.NestedScrollView
@@ -76,15 +77,14 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/btn_add_transaction"
+                android:id="@+id/transactionList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title_recent_transaction"
-                tools:listitem="@layout/item_transaction_layout" />
+                layout="@layout/item_transaction_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

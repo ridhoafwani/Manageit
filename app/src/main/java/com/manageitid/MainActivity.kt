@@ -1,26 +1,36 @@
 package com.manageitid
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.webkit.WebViewFragment
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.manageitid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private lateinit var auth: FirebaseAuth
+    private val auth : FirebaseAuth get() = Login.user
+    private val DashboardFragment =  DashboardFragment()
+
+
+    public companion object {
+        const val TAG = "___TEST___"
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        auth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        val DashboardFragment =  DashboardFragment()
         val fragment = supportFragmentManager.findFragmentByTag(DashboardFragment::class.java.simpleName)
 
         if (fragment !is DashboardFragment) {
@@ -33,6 +43,44 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_ui, menu)
+        val item = menu?.findItem(R.id.spinner)
+        val spinner = item?.actionView as Spinner
+
+        val adapter = ArrayAdapter.createFromResource(
+                baseContext,
+                R.array.allFilters,
+                R.layout.item_filter_dropdown
+        )
+        adapter.setDropDownViewResource(R.layout.item_filter_dropdown)
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            @SuppressLint("ResourceAsColor")
+            override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+            ) {
+
+                when (position) {
+                    0 -> {
+                        DashboardFragment.filter("All")
+                    }
+                    1 -> {
+                        DashboardFragment.filter("Income")
+                    }
+                    2 -> {
+                        DashboardFragment.filter("Expense")
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
         return true
     }
 
@@ -56,8 +104,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         return false
     }
+
 
 }
