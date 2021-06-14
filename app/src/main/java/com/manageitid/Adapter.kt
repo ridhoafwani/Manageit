@@ -98,6 +98,7 @@ class Adapter( val data : ArrayList<Transaction>) : RecyclerView.Adapter<Adapter
 
     // on item click listener
     private var onItemClickListener: ((Transaction) -> Unit)? = null
+
     fun setOnItemClickListener(listener: (Transaction) -> Unit) {
         onItemClickListener = listener
     }
