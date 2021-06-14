@@ -12,6 +12,7 @@ class TransactionDetailsFragment : Fragment() {
 
     private var _binding : FragmentTransactionDetailsBinding? = null
     private val binding : FragmentTransactionDetailsBinding get() = _binding!!
+    private lateinit var transaction : Transaction
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,32 @@ class TransactionDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val transaction = arguments
+        transaction = arguments?.getSerializable("transaction") as Transaction
+        initData()
+
+    }
+
+    private fun initData(){
+        binding.transactionDetails.title.text = capitalEachWord(transaction.title)
+        binding.transactionDetails.amount.text = indonesianRupiah(transaction.amount.toDouble())
+        binding.transactionDetails.type.text = transaction.transactionType
+        binding.transactionDetails.date.text = transaction.date
+        binding.transactionDetails.tag.text = transaction.tag
+//        binding.transactionDetails.createdAt.text = transaction.createdAtDateFormat
+        binding.transactionDetails.note.text = transaction.note
+    }
+
+    fun capitalEachWord (str: String) : String {
+
+        val words = str.split(" ")
+
+        var newStr = ""
+
+        words.forEach {
+            newStr += it.capitalize() + " "
+        }
+
+        return newStr
     }
 
 
