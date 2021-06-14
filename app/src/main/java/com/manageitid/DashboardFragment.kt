@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.Query
 import com.manageitid.databinding.FragmentDashboardBinding
+import kotlin.reflect.typeOf
 
 
 class DashboardFragment : Fragment() {
@@ -22,10 +23,14 @@ class DashboardFragment : Fragment() {
     private val binding : FragmentDashboardBinding get() = _binding!!
     var db = FirebaseFirestore.getInstance()
     var data = ArrayList<Transaction>()
+    var dataIncome = ArrayList<Transaction>()
+    var dataExpense = ArrayList<Transaction>()
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: Adapter
     private val auth : FirebaseAuth get() = Login.user
     private lateinit var uid : String
+    private var income : Double = 0.0
+    private var expense : Double = 0.0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +80,14 @@ class DashboardFragment : Fragment() {
                         val date = document.data.get("date") as String
                         val note = document.data.get("note") as String
                         data.add(Transaction(title,amount,type,tag,date,note))
+                        when(type){
+                            "Income" ->{
+                                dataIncome.add(Transaction(title,amount,type,tag,date,note))
+                            }
+                            "Expense" ->{
+                                dataExpense.add(Transaction(title,amount,type,tag,date,note))
+                            }
+                        }
                     }
                     Toast.makeText(activity, "berhasil datanya",
                         Toast.LENGTH_SHORT).show()
@@ -83,10 +96,7 @@ class DashboardFragment : Fragment() {
                         showEmptyData()
                     }
                     else{
-                        adapter = Adapter(data)
-                        recyclerView = binding.transactionList
-                        recyclerView.layoutManager = LinearLayoutManager(activity)
-                        recyclerView.adapter = adapter
+                        onFilter("All")
                         onTotalTransactionLoaded(data)
                     }
 
@@ -111,16 +121,29 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    private fun moveToDetails(bundle : Bundle){
+        val TransactionDetailsFragment = TransactionDetailsFragment()
+        val fragmentmanager = fragmentManager
+        TransactionDetailsFragment.arguments = bundle
+
+        fragmentmanager?.beginTransaction()?.apply {
+            replace(R.id.fragment_container, TransactionDetailsFragment, TransactionDetailsFragment::class.java.simpleName)
+            addToBackStack(null)
+            commit()
+        }
+    }
+
     private fun onTotalTransactionLoaded(transaction: List<Transaction> ) {
         val (totalIncome, totalExpense) = transaction.partition { it.transactionType == "Income" }
-        val income = totalIncome.sumByDouble { it.amount.toDouble() }
-        val expense = totalExpense.sumByDouble { it.amount.toDouble() }
+        income = totalIncome.sumByDouble { it.amount.toDouble() }
+        expense = totalExpense.sumByDouble { it.amount.toDouble() }
         binding.incomeCardView.total.text= "+ ".plus(indonesianRupiah(income))
         binding.expenseCardView.total.text = "- ".plus(indonesianRupiah(expense))
         binding.totalBalanceView.totalBalance.text = (indonesianRupiah(income - expense))
     }
 
     public fun filter (filter:String){
+        onFilter(filter)
         when (filter) {
             "All" -> {
                 binding.totalBalanceView.totalBalanceTitle.text =
@@ -129,16 +152,19 @@ class DashboardFragment : Fragment() {
                 binding.incomeCardView.totalTitle.text = getString(R.string.text_total_income)
                 binding.expenseCardView.totalTitle.text = getString(R.string.text_total_expense)
                 binding.expenseCardView.totalIcon.setImageResource(R.drawable.ic_expense)
+                binding.totalBalanceView.totalBalance.text = (indonesianRupiah(income - expense))
             }
             "Income" -> {
                 binding.totalBalanceView.totalBalanceTitle.text =
                         getString(R.string.text_total_income)
                 binding.totalIncomeExpenseView.visibility = View.GONE
+                binding.totalBalanceView.totalBalance.text = "+ ".plus(indonesianRupiah(income))
             }
             "Expense" -> {
                 binding.totalBalanceView.totalBalanceTitle.text =
                         getString(R.string.text_total_expense)
                 binding.totalIncomeExpenseView.visibility = View.GONE
+                binding.totalBalanceView.totalBalance.text = "- ".plus(indonesianRupiah(expense))
             }
         }
 
@@ -146,6 +172,34 @@ class DashboardFragment : Fragment() {
 
     private fun showEmptyData(){
         binding.emptyStateLayout.visibility = View.VISIBLE
+    }
+
+    public fun onFilter(filter: String){
+
+        when (filter) {
+            "All" -> {
+                adapter = Adapter(data)
+            }
+            "Income" -> {
+                adapter = Adapter(dataIncome)
+            }
+            "Expense" -> {
+                adapter = Adapter(dataExpense)
+            }
+        }
+
+        recyclerView = binding.transactionList
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.adapter = adapter
+
+        adapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("transaction", it)
+            }
+
+            moveToDetails(bundle)
+
+        }
     }
 
 }
