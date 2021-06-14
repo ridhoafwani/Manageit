@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.Query
 import com.manageitid.databinding.FragmentDashboardBinding
+import java.io.Serializable
 import kotlin.reflect.typeOf
 
 
@@ -79,13 +80,14 @@ class DashboardFragment : Fragment() {
                         val tag = document.data.get("tag") as String
                         val date = document.data.get("date") as String
                         val note = document.data.get("note") as String
-                        data.add(Transaction(title,amount,type,tag,date,note))
+                        val time = document.data.get("time") as String
+                        data.add(Transaction(title,amount,type,tag,date,note,time))
                         when(type){
                             "Income" ->{
-                                dataIncome.add(Transaction(title,amount,type,tag,date,note))
+                                dataIncome.add(Transaction(title,amount,type,tag,date,note,time))
                             }
                             "Expense" ->{
-                                dataExpense.add(Transaction(title,amount,type,tag,date,note))
+                                dataExpense.add(Transaction(title,amount,type,tag,date,note,time))
                             }
                         }
                     }
@@ -194,7 +196,7 @@ class DashboardFragment : Fragment() {
 
         adapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("transaction", it)
+                putSerializable("transaction", it as Serializable)
             }
 
             moveToDetails(bundle)
