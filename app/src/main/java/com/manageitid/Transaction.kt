@@ -4,6 +4,7 @@ import java.io.Serializable
 import java.text.DateFormat
 
 data class Transaction(
+    val id : String,
     val title : String,
     val amount: String,
     val transactionType: String,
