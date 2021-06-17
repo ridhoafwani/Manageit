@@ -19,7 +19,7 @@ import kotlin.reflect.typeOf
 
 
 class DashboardFragment : Fragment() {
-
+    //new
     private var _binding : FragmentDashboardBinding? = null
     private val binding : FragmentDashboardBinding get() = _binding!!
     var db = FirebaseFirestore.getInstance()
