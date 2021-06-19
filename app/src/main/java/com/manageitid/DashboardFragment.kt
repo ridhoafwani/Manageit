@@ -73,7 +73,10 @@ class DashboardFragment : Fragment() {
             .addOnCompleteListener(OnCompleteListener<QuerySnapshot> { task ->
                 if (task.isSuccessful) {
                     data.clear()
+                    dataIncome.clear()
+                    dataExpense.clear()
                     for (document in task.result!!) {
+                        val id = document.id as String
                         val title = document.data.get("title") as String
                         val amount = document.data.get("amount") as String
                         val type = document.data.get("type") as String
@@ -81,13 +84,13 @@ class DashboardFragment : Fragment() {
                         val date = document.data.get("date") as String
                         val note = document.data.get("note") as String
                         val time = document.data.get("time") as String
-                        data.add(Transaction(title,amount,type,tag,date,note,time))
+                        data.add(Transaction(id,title,amount,type,tag,date,note,time))
                         when(type){
                             "Income" ->{
-                                dataIncome.add(Transaction(title,amount,type,tag,date,note,time))
+                                dataIncome.add(Transaction(id,title,amount,type,tag,date,note,time))
                             }
                             "Expense" ->{
-                                dataExpense.add(Transaction(title,amount,type,tag,date,note,time))
+                                dataExpense.add(Transaction(id,title,amount,type,tag,date,note,time))
                             }
                         }
                     }
