@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
 import android.widget.ArrayAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.manageitid.databinding.FragmentAddTransactionBinding
 import java.time.LocalDateTime
@@ -87,8 +88,7 @@ class AddTransactionFragment : Fragment() {
 
 
     private fun addNewDataToFirestore() {
-        var uid = ""
-        uid = auth.currentUser?.uid.toString()
+        val uid = auth.currentUser?.uid.toString()
         val transactionData: MutableMap<String, Any> = HashMap()
         transactionData["uid"] = uid
         transactionData["time"] = currentDateTime.toString()
@@ -106,6 +106,15 @@ class AddTransactionFragment : Fragment() {
                     "DocumentSnapshot added with ID: " + documentReference.id
                 )
                 goToDashboard()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.success_expense_saved),
+                    Snackbar.LENGTH_LONG
+                )
+                    .apply {
+
+                        show()
+                    }
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e)
             }

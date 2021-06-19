@@ -3,6 +3,8 @@ package com.manageitid
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.manageitid.databinding.ItemTransactionLayoutBinding
 
@@ -10,8 +12,6 @@ class Adapter( val data : ArrayList<Transaction>) : RecyclerView.Adapter<Adapter
 
     inner class TransactionVH(val binding: ItemTransactionLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionVH {
         val binding =

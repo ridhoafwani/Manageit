@@ -10,8 +10,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.manageitid.databinding.ActivityLoginBinding
 
@@ -88,6 +88,7 @@ class Login : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    showSnackBar()
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     user = auth
@@ -140,6 +141,7 @@ class Login : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
+                            showSnackBar()
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(
                                 baseContext, "Signing In",
@@ -160,5 +162,17 @@ class Login : AppCompatActivity() {
         }
 
 
+    }
+
+    fun showSnackBar(){
+        Snackbar.make(
+            binding.root,
+            getString(R.string.success_login),
+            Snackbar.LENGTH_LONG
+        )
+            .apply {
+
+                show()
+            }
     }
 }

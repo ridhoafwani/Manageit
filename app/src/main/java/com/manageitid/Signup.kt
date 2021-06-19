@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.manageitid.databinding.ActivitySignupBinding
 
@@ -29,6 +30,7 @@ class Signup : AppCompatActivity(), View.OnClickListener {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if(currentUser != null){
+            Login.user = auth
             moveToMain()
         }
     }
@@ -62,6 +64,7 @@ class Signup : AppCompatActivity(), View.OnClickListener {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
+                            showSnackBar()
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(baseContext, "Registration Succsesfully",
                                 Toast.LENGTH_SHORT).show()
@@ -84,5 +87,17 @@ class Signup : AppCompatActivity(), View.OnClickListener {
 
     fun moveToMain(){
         startActivity(Intent(baseContext, MainActivity::class.java))
+    }
+
+    fun showSnackBar(){
+        Snackbar.make(
+            binding.root,
+            getString(R.string.success_signup),
+            Snackbar.LENGTH_LONG
+        )
+            .apply {
+
+                show()
+            }
     }
 }

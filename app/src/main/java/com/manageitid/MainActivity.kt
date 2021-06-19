@@ -10,7 +10,9 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.WebViewFragment
 import android.widget.*
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.manageitid.databinding.ActivityLoginBinding
 import com.manageitid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -89,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         when(itemView){
             R.id.action_logout -> {
                 auth.signOut()
+                showSnackBar()
                 startActivity(Intent(baseContext, Login::class.java))
             }
             R.id.action_about ->{
@@ -107,5 +110,16 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
+    fun showSnackBar(){
+        Snackbar.make(
+            binding.root,
+            getString(R.string.success_logout),
+            Snackbar.LENGTH_LONG
+        )
+            .apply {
+
+                show()
+            }
+    }
 
 }

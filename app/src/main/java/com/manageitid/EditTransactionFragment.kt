@@ -1,11 +1,10 @@
 package com.manageitid
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.manageitid.databinding.FragmentEditTransactionBinding
@@ -21,7 +20,7 @@ class EditTransactionFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +77,15 @@ class EditTransactionFragment : Fragment() {
         db.collection("transaction").document(transaction.id)
             .set(newTran, SetOptions.merge())
             .addOnSuccessListener {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.success_expense_saved),
+                    Snackbar.LENGTH_LONG
+                )
+                    .apply {
+
+                        show()
+                    }
                 goToDashboard()
             }
             .addOnFailureListener {  }
@@ -92,6 +100,11 @@ class EditTransactionFragment : Fragment() {
             addToBackStack(null)
             commit()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
     }
 
 
