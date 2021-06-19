@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.manageitid.databinding.FragmentTransactionDetailsBinding
+import java.io.Serializable
 
 
 class TransactionDetailsFragment : Fragment() {
@@ -23,6 +24,12 @@ class TransactionDetailsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         _binding = FragmentTransactionDetailsBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
+        binding.editTransaction.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("transaction", transaction as Serializable)
+            }
+            moveToEdit(bundle)
+        }
         return binding.root
     }
 
@@ -30,10 +37,6 @@ class TransactionDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         transaction = arguments?.getSerializable("transaction") as Transaction
         initData()
-
-        binding.editTransaction.setOnClickListener {
-            //buka edit transaksi
-        }
 
     }
 
@@ -59,6 +62,19 @@ class TransactionDetailsFragment : Fragment() {
 
         return newStr
     }
+
+    private fun moveToEdit(bundle : Bundle){
+        val EditTransactionFragment = EditTransactionFragment()
+        val fragmentmanager = fragmentManager
+        EditTransactionFragment.arguments = bundle
+
+        fragmentmanager?.beginTransaction()?.apply {
+            replace(R.id.fragment_container, EditTransactionFragment, EditTransactionFragment::class.java.simpleName)
+            addToBackStack(null)
+            commit()
+        }
+    }
+
 
 
 }

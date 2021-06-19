@@ -76,7 +76,7 @@ class DashboardFragment : Fragment() {
                     dataIncome.clear()
                     dataExpense.clear()
                     for (document in task.result!!) {
-                        val id = document.id as String
+                        val id = document.id
                         val title = document.data.get("title") as String
                         val amount = document.data.get("amount") as String
                         val type = document.data.get("type") as String
