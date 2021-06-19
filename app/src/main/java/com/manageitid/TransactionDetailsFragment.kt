@@ -38,10 +38,6 @@ class TransactionDetailsFragment : Fragment() {
         transaction = arguments?.getSerializable("transaction") as Transaction
         initData()
 
-        binding.editTransaction.setOnClickListener {
-            //buka edit transaksi
-        }
-
     }
 
     private fun initData(){
@@ -78,6 +74,7 @@ class TransactionDetailsFragment : Fragment() {
             commit()
         }
     }
+
 
 
 }
