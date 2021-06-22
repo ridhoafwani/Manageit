@@ -5,12 +5,17 @@ object Constant {
 
     val transactionTags = listOf(
         "Income",
-        "Housing",
+        "School & College",
+        "Child",
+        "Fashion",
+        "Property",
         "Transportation",
         "Food",
+        "Internet",
         "Insurance",
         "Healthcare",
         "Saving & Debts",
+        "Personal Spending",
         "Entertainment",
         "Others"
     )
