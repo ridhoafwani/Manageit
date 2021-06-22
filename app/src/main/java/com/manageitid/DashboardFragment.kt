@@ -96,8 +96,16 @@ class DashboardFragment : Fragment() {
                             }
                         }
                     }
-                    Toast.makeText(activity, "berhasil datanya",
-                        Toast.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.success_load_data),
+                        Snackbar.LENGTH_LONG
+                    )
+                        .apply {
+                            show()
+                        }
+//                    Toast.makeText(activity, "berhasil datanya",
+//                        Toast.LENGTH_SHORT).show()
                     Log.d(TAG, "ini datanya" + data)
                     if(data.isEmpty()){
                         showEmptyData()

@@ -67,24 +67,22 @@ class AddTransactionFragment : Fragment() {
         binding.btnSaveTransaction.setOnClickListener {
             when{
                 binding.addTransactionLayout.etTitle.text!!.isEmpty() -> {
-                    binding.addTransactionLayout.etTitle.error = "Title cannot be blank"
+                    binding.addTransactionLayout.etTitle.error = "Title cannot be empty"
                 }
-
-                // Teruskan untuk field wajib lainnya
                 binding.addTransactionLayout.etAmount.text!!.isEmpty() ->{
-                    binding.addTransactionLayout.etAmount.error = "Amount cannot be blank"
+                    binding.addTransactionLayout.etAmount.error = "Amount cannot be empty"
                 }
                 binding.addTransactionLayout.etTransactionType.text!!.isEmpty() ->{
-                    binding.addTransactionLayout.etTransactionType.error = "Transaction Type cannot be blank"
+                    binding.addTransactionLayout.etTransactionType.error = "Transaction Type cannot be empty"
                 }
                 binding.addTransactionLayout.etTag.text!!.isEmpty() ->{
-                    binding.addTransactionLayout.etTag.error = "Transaction Tag cannot be blank"
+                    binding.addTransactionLayout.etTag.error = "Transaction Tag cannot be empty"
                 }
                 binding.addTransactionLayout.etWhen.text!!.isEmpty() ->{
-                    binding.addTransactionLayout.etWhen.error = "Transaction Date cannot be blank"
+                    binding.addTransactionLayout.etWhen.error = "Transaction Date cannot be empty"
                 }
                 binding.addTransactionLayout.etNote.text!!.isEmpty() ->{
-                    binding.addTransactionLayout.etNote.error = " cannot be blank"
+                    binding.addTransactionLayout.etNote.error = "Transaction cannot be empty"
                 }
 
                 else ->{

@@ -24,10 +24,11 @@
     <string name="text_createdAt">Created At</string>
     <!-- Snack Bar -->
     <string name="success_login">Login successfully</string>
-    <string name="success_signup">Sign Up uccessfully</string>
+    <string name="success_signup">Sign Up successfully</string>
     <string name="success_logout">Logged Out</string>
     <string name="success_expense_saved">Transaction saved successfully</string>
     <string name="success_transaction_delete">Transaction deleted successfully!</string>
+    <string name="success_load_data">Data loaded successfully!</string>
     <!-- share transaction -->
     <string name="share_message">\%s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s \n</string>
     <!--  About -->
