@@ -5,6 +5,7 @@ object Constant {
 
     val transactionTags = listOf(
         "Income",
+        "Gift",
         "School & College",
         "Child",
         "Fashion",
