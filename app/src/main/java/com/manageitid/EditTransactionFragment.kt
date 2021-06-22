@@ -29,9 +29,31 @@ class EditTransactionFragment : Fragment() {
         // Inflate the layout for this fragment
         binding.btnSaveTransaction.setOnClickListener {
 
-            // Buat validation disini juga
+            when{
+                binding.addTransactionLayout.etTitle.text!!.isEmpty() -> {
+                    binding.addTransactionLayout.etTitle.error = "Title cannot be empty"
+                }
+                binding.addTransactionLayout.etAmount.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etAmount.error = "Amount cannot be empty"
+                }
+                binding.addTransactionLayout.etTransactionType.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etTransactionType.error = "Transaction Type cannot be empty"
+                }
+                binding.addTransactionLayout.etTag.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etTag.error = "Transaction Tag cannot be empty"
+                }
+                binding.addTransactionLayout.etWhen.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etWhen.error = "Transaction Date cannot be empty"
+                }
+                binding.addTransactionLayout.etNote.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etNote.error = "Transaction cannot be empty"
+                }
 
-            updateTransaction()
+                else ->{
+                    updateTransaction()
+                }
+            }
+
         }
         return binding.root
     }
