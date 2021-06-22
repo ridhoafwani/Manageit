@@ -71,6 +71,21 @@ class AddTransactionFragment : Fragment() {
                 }
 
                 // Teruskan untuk field wajib lainnya
+                binding.addTransactionLayout.etAmount.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etAmount.error = "Amount cannot be blank"
+                }
+                binding.addTransactionLayout.etTransactionType.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etTransactionType.error = "Transaction Type cannot be blank"
+                }
+                binding.addTransactionLayout.etTag.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etTag.error = "Transaction Tag cannot be blank"
+                }
+                binding.addTransactionLayout.etWhen.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etWhen.error = "Transaction Date cannot be blank"
+                }
+                binding.addTransactionLayout.etNote.text!!.isEmpty() ->{
+                    binding.addTransactionLayout.etNote.error = " cannot be blank"
+                }
 
                 else ->{
                     addNewDataToFirestore()

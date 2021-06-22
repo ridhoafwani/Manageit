@@ -8,11 +8,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.webkit.WebViewFragment
 import android.widget.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.manageitid.databinding.ActivityLoginBinding
 import com.manageitid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

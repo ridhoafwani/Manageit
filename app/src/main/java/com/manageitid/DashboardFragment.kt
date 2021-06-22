@@ -245,6 +245,7 @@ class DashboardFragment : Fragment() {
                 )
                     .apply {
                         setAction("Undo") {
+                            // Panggil dan buat method undo
 //                            viewModel.insertTransaction(
 //                                transactionItem
 //                            )
@@ -268,5 +269,6 @@ class DashboardFragment : Fragment() {
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
     }
+
 
 }

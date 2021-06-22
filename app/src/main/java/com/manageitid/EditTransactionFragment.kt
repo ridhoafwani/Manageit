@@ -28,6 +28,9 @@ class EditTransactionFragment : Fragment() {
         _binding = FragmentEditTransactionBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
         binding.btnSaveTransaction.setOnClickListener {
+
+            // Buat validation disini juga
+
             updateTransaction()
         }
         return binding.root
