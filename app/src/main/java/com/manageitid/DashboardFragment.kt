@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.Query
@@ -61,7 +63,7 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        swipeToDelete()
     }
 
     private fun getDataFromFirestore() {
@@ -206,5 +208,67 @@ class DashboardFragment : Fragment() {
 
         }
     }
+
+    private fun swipeToDelete() {
+        // init item touch callback for swipe action
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder,
+            ): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                // get item position & delete notes
+                val position = viewHolder.adapterPosition
+                val transaction = data[position]
+                val transactionItem = Transaction(
+                    transaction.title,
+                    transaction.amount,
+                    transaction.transactionType,
+                    transaction.tag,
+                    transaction.date,
+                    transaction.note,
+                    transaction.createdAt,
+                    transaction.id
+                )
+                deleteTransaction(transaction.id)
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.success_transaction_delete),
+                    Snackbar.LENGTH_LONG
+                )
+                    .apply {
+                        setAction("Undo") {
+                            // Panggil dan buat method undo
+//                            viewModel.insertTransaction(
+//                                transactionItem
+//                            )
+                        }
+                        show()
+                    }
+            }
+        }
+
+        ItemTouchHelper(itemTouchHelperCallback).apply {
+            attachToRecyclerView(binding.transactionList)
+        }
+    }
+
+    private fun deleteTransaction(path : String){
+        db.collection("transaction").document(path)
+            .delete()
+            .addOnSuccessListener {
+                getDataFromFirestore()
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+    }
+
 
 }

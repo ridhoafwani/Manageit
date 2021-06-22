@@ -1,12 +1,19 @@
 package com.manageitid
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.*
+import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.manageitid.databinding.FragmentTransactionDetailsBinding
 import java.io.Serializable
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.drawToBitmap
+import android.widget.Toast
 
 
 class TransactionDetailsFragment : Fragment() {
@@ -17,7 +24,7 @@ class TransactionDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +82,81 @@ class TransactionDetailsFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_share, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_delete -> {
+                //hapus disini
+            }
+            R.id.action_share_text -> shareText()
+            R.id.action_share_image -> shareImage()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    // handle permission dialog
+    private val requestLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) shareImage()
+//            else showErrorDialog()
+        }
+
+//    private fun showErrorDialog() =(
+//        error dialog sini
+//        )
+
+    private fun shareImage() {
+        if (!isStoragePermissionGranted()) {
+            requestLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            return
+        }
+
+        val imageURI = binding.transactionDetails.detailView.drawToBitmap().let { bitmap ->
+            saveBitmap(requireActivity(), bitmap)
+        } ?: run {
+            Toast.makeText(activity, "error",
+                Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val intent = ShareCompat.IntentBuilder(requireActivity())
+            .setType("image/jpeg")
+            .setStream(imageURI)
+            .intent
+
+        startActivity(Intent.createChooser(intent, null))
+    }
+
+
+    private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    @SuppressLint("StringFormatMatches")
+    private fun shareText() = with(binding) {
+        val shareMsg = getString(
+            R.string.share_message,
+            transactionDetails.title.text.toString(),
+            transactionDetails.amount.text.toString(),
+            transactionDetails.type.text.toString(),
+            transactionDetails.tag.text.toString(),
+            transactionDetails.date.text.toString(),
+            transactionDetails.note.text.toString(),
+        )
+
+        val intent = ShareCompat.IntentBuilder(requireActivity())
+            .setType("text/plain")
+            .setText(shareMsg)
+            .intent
+
+        startActivity(Intent.createChooser(intent, null))
+    }
 
 
 }
