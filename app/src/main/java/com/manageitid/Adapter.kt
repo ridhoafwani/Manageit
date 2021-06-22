@@ -54,17 +54,20 @@ class Adapter( val data : ArrayList<Transaction>) : RecyclerView.Adapter<Adapter
             }
 
             when (item.tag) {
-                "Housing" -> {
-                    transactionIconView.setImageResource(R.drawable.ic_food)
+                "Income" -> {
+                    transactionIconView.setImageResource(R.drawable.ic_others)
+                }
+                "Gift" -> {
+                    transactionIconView.setImageResource(R.drawable.ic_others)
+                }
+                "Property" -> {
+                    transactionIconView.setImageResource(R.drawable.ic_housing)
                 }
                 "Transportation" -> {
                     transactionIconView.setImageResource(R.drawable.ic_transport)
                 }
                 "Food" -> {
                     transactionIconView.setImageResource(R.drawable.ic_food)
-                }
-                "Utilities" -> {
-                    transactionIconView.setImageResource(R.drawable.ic_utilities)
                 }
                 "Insurance" -> {
                     transactionIconView.setImageResource(R.drawable.ic_insurance)
@@ -81,7 +84,16 @@ class Adapter( val data : ArrayList<Transaction>) : RecyclerView.Adapter<Adapter
                 "Entertainment" -> {
                     transactionIconView.setImageResource(R.drawable.ic_entertainment)
                 }
-                "Miscellaneous" -> {
+                "Fashion" -> {
+                    transactionIconView.setImageResource(R.drawable.ic_others)
+                }
+                "School & College" -> {
+                    transactionIconView.setImageResource(R.drawable.ic_others)
+                }
+                "Child" -> {
+                    transactionIconView.setImageResource(R.drawable.ic_others)
+                }
+                "Internet" -> {
                     transactionIconView.setImageResource(R.drawable.ic_others)
                 }
                 else -> {
