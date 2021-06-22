@@ -228,14 +228,14 @@ class DashboardFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val transaction = data[position]
                 val transactionItem = Transaction(
+                    transaction.id,
                     transaction.title,
                     transaction.amount,
                     transaction.transactionType,
                     transaction.tag,
                     transaction.date,
                     transaction.note,
-                    transaction.createdAt,
-                    transaction.id
+                    transaction.createdAt
                 )
                 deleteTransaction(transaction.id)
                 Snackbar.make(
