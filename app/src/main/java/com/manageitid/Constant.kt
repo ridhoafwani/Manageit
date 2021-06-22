@@ -18,6 +18,7 @@ object Constant {
         "Saving & Debts",
         "Personal Spending",
         "Entertainment",
+        "Pets",
         "Others"
     )
 }

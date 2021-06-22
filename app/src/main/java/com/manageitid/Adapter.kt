@@ -96,6 +96,9 @@ class Adapter( val data : ArrayList<Transaction>) : RecyclerView.Adapter<Adapter
                 "Internet" -> {
                     transactionIconView.setImageResource(R.drawable.ic_internet)
                 }
+                "Pets" -> {
+                    transactionIconView.setImageResource(R.drawable.ic_pets)
+                }
                 else -> {
                     transactionIconView.setImageResource(R.drawable.ic_others)
                 }
