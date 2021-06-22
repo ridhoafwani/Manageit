@@ -61,7 +61,7 @@ class Adapter( val data : ArrayList<Transaction>) : RecyclerView.Adapter<Adapter
                     transactionIconView.setImageResource(R.drawable.ic_others)
                 }
                 "Property" -> {
-                    transactionIconView.setImageResource(R.drawable.ic_food)
+                    transactionIconView.setImageResource(R.drawable.ic_housing)
                 }
                 "Transportation" -> {
                     transactionIconView.setImageResource(R.drawable.ic_transport)
