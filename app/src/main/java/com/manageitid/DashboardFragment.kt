@@ -228,14 +228,14 @@ class DashboardFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val transaction = data[position]
                 val transactionItem = Transaction(
+                    transaction.id,
                     transaction.title,
                     transaction.amount,
                     transaction.transactionType,
                     transaction.tag,
                     transaction.date,
                     transaction.note,
-                    transaction.createdAt,
-                    transaction.id
+                    transaction.createdAt
                 )
                 deleteTransaction(transaction.id)
                 Snackbar.make(
@@ -245,10 +245,7 @@ class DashboardFragment : Fragment() {
                 )
                     .apply {
                         setAction("Undo") {
-                            // Panggil dan buat method undo
-//                            viewModel.insertTransaction(
-//                                transactionItem
-//                            )
+                            undo(transactionItem)
                         }
                         show()
                     }
@@ -268,6 +265,40 @@ class DashboardFragment : Fragment() {
                 Log.d(TAG, "DocumentSnapshot successfully deleted!")
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+    }
+
+    private fun undo(transactionItem : Transaction) {
+        val uid = auth.currentUser?.uid.toString()
+        val transactionData: MutableMap<String, Any> = HashMap()
+        transactionData["uid"] = uid
+        transactionData["time"] = transactionItem.createdAt
+        transactionData["title"] = transactionItem.title
+        transactionData["amount"] = transactionItem.amount
+        transactionData["type"] = transactionItem.transactionType
+        transactionData["tag"] = transactionItem.tag
+        transactionData["date"] = transactionItem.date
+        transactionData["note"] = transactionItem.note
+
+        db.collection("transaction")
+            .add(transactionData)
+            .addOnSuccessListener { documentReference ->
+                Log.d(
+                    TAG,
+                    "DocumentSnapshot added with ID: " + documentReference.id
+                )
+                this.getDataFromFirestore()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.success_expense_saved),
+                    Snackbar.LENGTH_LONG
+                )
+                    .apply {
+
+                        show()
+                    }
+            }
+            .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e)
+            }
     }
 
 
