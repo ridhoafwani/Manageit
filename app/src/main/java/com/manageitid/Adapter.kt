@@ -55,7 +55,7 @@ class Adapter( val data : ArrayList<Transaction>) : RecyclerView.Adapter<Adapter
 
             when (item.tag) {
                 "Income" -> {
-                    transactionIconView.setImageResource(R.drawable.ic_income)
+                    transactionIconView.setImageResource(R.drawable.ic_income_list)
                 }
                 "Gift" -> {
                     transactionIconView.setImageResource(R.drawable.ic_gift)
