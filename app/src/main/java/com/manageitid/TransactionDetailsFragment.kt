@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
@@ -14,6 +15,7 @@ import java.io.Serializable
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.drawToBitmap
 import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class TransactionDetailsFragment : Fragment() {
@@ -21,6 +23,8 @@ class TransactionDetailsFragment : Fragment() {
     private var _binding : FragmentTransactionDetailsBinding? = null
     private val binding : FragmentTransactionDetailsBinding get() = _binding!!
     private lateinit var transaction : Transaction
+    var db = FirebaseFirestore.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +95,7 @@ class TransactionDetailsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_delete -> {
-                //hapus disini
+                deleteTransaction(transaction.id)
             }
             R.id.action_share_text -> shareText()
             R.id.action_share_image -> shareImage()
@@ -158,5 +162,17 @@ class TransactionDetailsFragment : Fragment() {
         startActivity(Intent.createChooser(intent, null))
     }
 
+    private fun deleteTransaction(path : String){
+        db.collection("transaction").document(path)
+            .delete()
+            .addOnSuccessListener {
+                moveToMain()
+            }
+            .addOnFailureListener {}
+    }
+
+    fun moveToMain(){
+        startActivity(Intent(activity, MainActivity::class.java))
+    }
 
 }
