@@ -40,9 +40,9 @@ class DashboardFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    private companion object {
+    companion object {
         private const val TAG = "___TEST___"
-
+        lateinit var dashboardBind : FragmentDashboardBinding
     }
 
 
@@ -52,6 +52,7 @@ class DashboardFragment : Fragment() {
     ): View? {
         _binding = FragmentDashboardBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
+        dashboardBind = binding
         binding.floatingAddTransaction.setOnClickListener {
             moveToAdd()
         }
@@ -111,7 +112,7 @@ class DashboardFragment : Fragment() {
                         showEmptyData()
                     }
                     else{
-                        onFilter("All")
+                        filter("All")
                         onTotalTransactionLoaded(data)
                     }
 
@@ -308,6 +309,7 @@ class DashboardFragment : Fragment() {
             .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e)
             }
     }
+
 
 
 }

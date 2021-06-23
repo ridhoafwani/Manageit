@@ -1,5 +1,7 @@
 package com.manageitid
 
+import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -7,6 +9,7 @@ import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.manageitid.databinding.ActivityMainBinding
 import com.manageitid.databinding.FragmentEditTransactionBinding
 import com.manageitid.databinding.FragmentTransactionDetailsBinding
 
@@ -50,6 +53,15 @@ class EditTransactionFragment : Fragment() {
                 }
 
                 else ->{
+                    Snackbar.make(
+                        binding.root,
+                        "Processing, Pleas Wait",
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .apply {
+
+                            show()
+                        }
                     updateTransaction()
                 }
             }
@@ -111,25 +123,19 @@ class EditTransactionFragment : Fragment() {
 
                         show()
                     }
-                goToDashboard()
+
+                moveToMain()
             }
             .addOnFailureListener {  }
-    }
-
-    private fun goToDashboard(){
-        val DashboardFragment = DashboardFragment()
-        val fragmentmanager = fragmentManager
-
-        fragmentmanager?.beginTransaction()?.apply {
-            replace(R.id.fragment_container, DashboardFragment, DashboardFragment::class.java.simpleName)
-            addToBackStack(null)
-            commit()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
+    }
+
+    fun moveToMain(){
+        startActivity(Intent(activity, MainActivity::class.java))
     }
 
 

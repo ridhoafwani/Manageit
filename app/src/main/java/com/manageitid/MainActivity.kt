@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                             .beginTransaction()
                             .replace(R.id.fragment_container, AboutFragment, AboutFragment::class.java.simpleName)
+                            .addToBackStack(null)
                             .commit()
                 }
             }

@@ -52,6 +52,15 @@ class Login : AppCompatActivity() {
             signInDefault()
         }
         binding.btnSignInGoogle.setOnClickListener {
+            Snackbar.make(
+                binding.root,
+                "Processing, Pleas Wait",
+                Snackbar.LENGTH_SHORT
+            )
+                .apply {
+
+                    show()
+                }
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
@@ -137,6 +146,15 @@ class Login : AppCompatActivity() {
                 binding.edtPassword.requestFocus()
             }
             else ->{
+                Snackbar.make(
+                    binding.root,
+                    "Processing, Pleas Wait",
+                    Snackbar.LENGTH_SHORT
+                )
+                    .apply {
+
+                        show()
+                    }
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {

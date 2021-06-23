@@ -1,5 +1,6 @@
 package com.manageitid
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -118,7 +119,7 @@ class AddTransactionFragment : Fragment() {
                 Log.d(TAG,
                     "DocumentSnapshot added with ID: " + documentReference.id
                 )
-                goToDashboard()
+                moveToMain()
                 Snackbar.make(
                     binding.root,
                     getString(R.string.success_expense_saved),
@@ -133,15 +134,8 @@ class AddTransactionFragment : Fragment() {
             }
     }
 
-    private fun goToDashboard(){
-        val DashboardFragment = DashboardFragment()
-        val fragmentmanager = fragmentManager
-
-        fragmentmanager?.beginTransaction()?.apply {
-            replace(R.id.fragment_container, DashboardFragment, DashboardFragment::class.java.simpleName)
-            addToBackStack(null)
-            commit()
-        }
+    fun moveToMain(){
+        startActivity(Intent(activity, MainActivity::class.java))
     }
 
 
