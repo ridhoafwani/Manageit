@@ -110,7 +110,7 @@
                 android:layout_width="0dp"
                 android:layout_height="15dp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -126,7 +126,7 @@
                 android:layout_width="0dp"
                 android:layout_height="15dp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_sign_in_google"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"

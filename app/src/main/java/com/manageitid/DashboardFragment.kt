@@ -105,8 +105,7 @@ class DashboardFragment : Fragment() {
                         .apply {
                             show()
                         }
-//                    Toast.makeText(activity, "berhasil datanya",
-//                        Toast.LENGTH_SHORT).show()
+
                     Log.d(TAG, "ini datanya" + data)
                     if(data.isEmpty()){
                         showEmptyData()
@@ -119,7 +118,7 @@ class DashboardFragment : Fragment() {
 
                 } else {
                     Log.w(TAG, "Error getting documents.", task.exception)
-                    Toast.makeText(activity, "Gagal bos $task.exception",
+                    Toast.makeText(activity, "Error getting documents $task.exception",
                         Toast.LENGTH_SHORT).show()
 
                 }

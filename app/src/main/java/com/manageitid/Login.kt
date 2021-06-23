@@ -54,7 +54,7 @@ class Login : AppCompatActivity() {
         binding.btnSignInGoogle.setOnClickListener {
             Snackbar.make(
                 binding.root,
-                "Processing, Pleas Wait",
+                "Processing, Please Wait",
                 Snackbar.LENGTH_SHORT
             )
                 .apply {
@@ -85,7 +85,7 @@ class Login : AppCompatActivity() {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
                 Toast.makeText(
-                    baseContext, "Gagal bos",
+                    baseContext, "Google sign in failed",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -105,7 +105,7 @@ class Login : AppCompatActivity() {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
-                        baseContext, "Gagal diakhir",
+                        baseContext, "Failed",
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -148,7 +148,7 @@ class Login : AppCompatActivity() {
             else ->{
                 Snackbar.make(
                     binding.root,
-                    "Processing, Pleas Wait",
+                    "Processing, Please Wait",
                     Snackbar.LENGTH_SHORT
                 )
                     .apply {

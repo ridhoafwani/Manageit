@@ -55,7 +55,7 @@ class EditTransactionFragment : Fragment() {
                 else ->{
                     Snackbar.make(
                         binding.root,
-                        "Processing, Pleas Wait",
+                        "Processing, Please Wait",
                         Snackbar.LENGTH_SHORT
                     )
                         .apply {
