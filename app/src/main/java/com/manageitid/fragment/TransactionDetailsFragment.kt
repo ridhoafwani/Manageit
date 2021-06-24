@@ -1,11 +1,10 @@
-package com.manageitid
+package com.manageitid.fragment
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
@@ -13,9 +12,14 @@ import androidx.fragment.app.Fragment
 import com.manageitid.databinding.FragmentTransactionDetailsBinding
 import java.io.Serializable
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.drawToBitmap
 import android.widget.Toast
+import androidx.core.view.drawToBitmap
 import com.google.firebase.firestore.FirebaseFirestore
+import com.manageitid.activity.MainActivity
+import com.manageitid.R
+import com.manageitid.extra.Transaction
+import com.manageitid.extra.indonesianRupiah
+import com.manageitid.extra.saveBitmap
 
 
 class TransactionDetailsFragment : Fragment() {

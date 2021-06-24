@@ -1,4 +1,4 @@
-package com.manageitid
+package com.manageitid.extra
 
 object Constant {
     val transactionType = listOf("Income", "Expense")

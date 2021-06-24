@@ -1,12 +1,13 @@
-package com.manageitid
+package com.manageitid.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.manageitid.R
 import com.manageitid.databinding.ItemTransactionLayoutBinding
+import com.manageitid.extra.Transaction
+import com.manageitid.extra.indonesianRupiah
 
 class Adapter( val data : ArrayList<Transaction>) : RecyclerView.Adapter<Adapter.TransactionVH>() {
 

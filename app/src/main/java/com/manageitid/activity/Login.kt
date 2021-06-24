@@ -1,4 +1,4 @@
-package com.manageitid
+package com.manageitid.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.manageitid.R
 import com.manageitid.databinding.ActivityLoginBinding
 
 

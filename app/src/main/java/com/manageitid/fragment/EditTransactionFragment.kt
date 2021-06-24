@@ -1,7 +1,6 @@
-package com.manageitid
+package com.manageitid.fragment
 
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -9,9 +8,11 @@ import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.manageitid.databinding.ActivityMainBinding
+import com.manageitid.activity.MainActivity
+import com.manageitid.R
 import com.manageitid.databinding.FragmentEditTransactionBinding
-import com.manageitid.databinding.FragmentTransactionDetailsBinding
+import com.manageitid.extra.Constant
+import com.manageitid.extra.Transaction
 
 
 class EditTransactionFragment : Fragment() {

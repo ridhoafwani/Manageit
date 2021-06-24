@@ -1,19 +1,19 @@
-package com.manageitid
+package com.manageitid.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.manageitid.R
 import com.manageitid.databinding.ActivityMainBinding
+import com.manageitid.fragment.AboutFragment
+import com.manageitid.fragment.DashboardFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = ArrayAdapter.createFromResource(
                 baseContext,
-                R.array.allFilters,
-                R.layout.item_filter_dropdown
+            R.array.allFilters,
+            R.layout.item_filter_dropdown
         )
         adapter.setDropDownViewResource(R.layout.item_filter_dropdown)
         spinner.adapter = adapter

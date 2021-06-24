@@ -1,9 +1,9 @@
-package com.manageitid
+package com.manageitid.fragment
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import com.manageitid.databinding.ActivityLoginBinding
+import com.manageitid.R
 
 
 class AboutFragment : Fragment() {

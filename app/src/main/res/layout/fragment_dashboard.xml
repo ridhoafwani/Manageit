@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DashboardFragment"
+    tools:context=".fragment.DashboardFragment"
     android:id="@+id/dashboardFrag">
 
 
@@ -25,7 +25,7 @@
 
             <include
                 android:id="@+id/total_balance_view"
-                layout="@layout/total_balance_view"
+                layout="@layout/conten_total_balance_view"
                 android:layout_width="match_parent"
                 android:layout_height="124dp"
                 android:layout_marginStart="8dp"

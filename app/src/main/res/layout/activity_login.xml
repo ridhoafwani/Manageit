@@ -105,7 +105,6 @@
                 android:layout_height="10dp" />
 
 
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="15dp" />

@@ -1,4 +1,4 @@
-package com.manageitid
+package com.manageitid.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,12 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.manageitid.activity.Login
+import com.manageitid.activity.MainActivity
+import com.manageitid.R
 import com.manageitid.databinding.FragmentAddTransactionBinding
+import com.manageitid.extra.Constant
+import com.manageitid.extra.DatePicker
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.HashMap
@@ -116,7 +121,8 @@ class AddTransactionFragment : Fragment() {
         db.collection("transaction")
             .add(transactionData)
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG,
+                Log.d(
+                    TAG,
                     "DocumentSnapshot added with ID: " + documentReference.id
                 )
                 moveToMain()

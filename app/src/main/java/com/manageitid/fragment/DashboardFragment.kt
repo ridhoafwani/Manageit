@@ -1,4 +1,4 @@
-package com.manageitid
+package com.manageitid.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.Query
+import com.manageitid.activity.Login
+import com.manageitid.R
+import com.manageitid.adapter.Adapter
 import com.manageitid.databinding.FragmentDashboardBinding
+import com.manageitid.extra.Transaction
+import com.manageitid.extra.indonesianRupiah
 import java.io.Serializable
-import kotlin.reflect.typeOf
 
 
 class DashboardFragment : Fragment() {
