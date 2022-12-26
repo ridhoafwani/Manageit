@@ -24,8 +24,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/logo"
-                />
+                android:src="@drawable/logo" />
 
             <View
                 android:layout_width="0dp"
@@ -160,8 +159,8 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:text="Sign Up"
-                    android:textSize="16dp"
                     android:textColor="#FF5722"
+                    android:textSize="16dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
